@@ -152,7 +152,7 @@ public class DeviceControlActivity extends Activity {
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                             mNotifyCharacteristic = characteristic;
                             mBluetoothLeService.setCharacteristicNotification(
-                                    characteristic, false);
+                                    characteristic, true);
                         }
                         mCharacteristicToRead = characteristic;
                         return true;
@@ -330,20 +330,28 @@ public class DeviceControlActivity extends Activity {
         {
             case R.id.checkBox:
                 if(checked) {
-                    final int time = 10000;
-                    Handler mHandler = new Handler();
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                  new Thread(new Runnable() {
+                      @Override
+                      public void run() {
+                          while(!Thread.interrupted())
+                              try
+                              {
+                                  Thread.sleep(10000);
+                                  runOnUiThread(new Runnable() {
+                                      @Override
+                                      public void run() {
+                                          mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                          displayData(data);
+                                          showNotification();
+                                      }
+                                  });
+                              }
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
-
-
-                        }
-
-                    },time);
+                              catch (InterruptedException e) {
+                                  e.printStackTrace();
+                              }
+                      }
+                  }).start();
 
 
                 }
@@ -353,20 +361,28 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox2:
                 if(checked){
-                    final int time = 20000;
-                    Handler mHandler = new Handler();
-                    mHandler.postDelayed(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            while(!Thread.interrupted())
+                                try
+                                {
+                                    Thread.sleep(20000);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                            displayData(data);
+                                            showNotification();
+                                        }
+                                    });
+                                }
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
-
+                                catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                         }
-
-                    },time);
-
+                    }).start();
 
                 }
 
@@ -375,19 +391,28 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox3:
                 if(checked){
-                    final int time = 30000;
-                    Handler mHandler = new Handler();
-                    mHandler.postDelayed(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            while(!Thread.interrupted())
+                                try
+                                {
+                                    Thread.sleep(30000);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                            displayData(data);
+                                            showNotification();
+                                        }
+                                    });
+                                }
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
-
+                                catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                         }
-
-                    },time);
+                    }).start();
 
 
                 }
