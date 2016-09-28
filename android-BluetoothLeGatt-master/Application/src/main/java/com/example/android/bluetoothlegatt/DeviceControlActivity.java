@@ -71,9 +71,6 @@ public class DeviceControlActivity extends Activity {
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothGattCharacteristic mCharacteristicToRead;
     private String data;
-    private String[] parts;
-    private String[] temp;
-    private String[] bpm;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
@@ -123,9 +120,6 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(data);
-                parts = data.split("\\t");
-                temp = parts[0].split(":");
-                bpm = parts[1].split(":");
                 showNotification();
 
             }
@@ -331,7 +325,7 @@ public class DeviceControlActivity extends Activity {
     public void onCheckboxClicked(View view)
     {
         boolean checked = ((CheckBox)view).isChecked();
-        final Intent intent = getIntent();
+
         switch(view.getId())
         {
             case R.id.checkBox:
@@ -343,7 +337,7 @@ public class DeviceControlActivity extends Activity {
                         public void run() {
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                            displayData(data);
                             showNotification();
 
 
@@ -366,7 +360,7 @@ public class DeviceControlActivity extends Activity {
                         public void run() {
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                            displayData(data);
                             showNotification();
 
                         }
@@ -388,7 +382,7 @@ public class DeviceControlActivity extends Activity {
                         public void run() {
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                            displayData(data);
                             showNotification();
 
                         }
@@ -411,7 +405,7 @@ public class DeviceControlActivity extends Activity {
                 .setTicker(r.getString(R.string.notification_title))
                 .setSmallIcon(android.R.drawable.ic_menu_report_image)
                 .setContentTitle(r.getString(R.string.notification_title))
-                .setContentText(parts[0])
+                .setContentText(data)
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .build();
