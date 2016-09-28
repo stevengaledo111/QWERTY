@@ -70,6 +70,7 @@ public class DeviceControlActivity extends Activity {
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothGattCharacteristic mCharacteristicToRead;
+    private String data;
     private String[] parts;
     private String[] temp;
     private String[] bpm;
@@ -107,6 +108,7 @@ public class DeviceControlActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
+            data = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
                 updateConnectionState(R.string.connected);
@@ -120,7 +122,10 @@ public class DeviceControlActivity extends Activity {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                displayData(data);
+                parts = data.split("\\t");
+                temp = parts[0].split(":");
+                bpm = parts[1].split(":");
                 showNotification();
 
             }
@@ -254,9 +259,6 @@ public class DeviceControlActivity extends Activity {
     public void displayData(String data) {
         if (data != null) {
             mDataField.setText(data);
-            parts = data.split("\\t");
-            temp = parts[0].split(":");
-            bpm = parts[1].split(":");
         }
     }
 
