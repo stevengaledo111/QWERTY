@@ -121,7 +121,7 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-
+                showNotification();
 
             }
         }
@@ -334,7 +334,7 @@ public class DeviceControlActivity extends Activity {
         {
             case R.id.checkBox:
                 if(checked) {
-                    final int time = 60000;
+                    final int time = 10000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
@@ -357,7 +357,7 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox2:
                 if(checked){
-                    final int time = 120000;
+                    final int time = 20000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
@@ -379,7 +379,7 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox3:
                 if(checked){
-                    final int time = 360000;
+                    final int time = 30000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override

@@ -23,9 +23,9 @@
     <string name="disconnected">Disconnected</string>
     <string name="title_devices">Scan for Devices</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
-    <string name="check1">1 minutes</string>
-    <string name="check2">2 minutes</string>
-    <string name="check3">3 minutes</string>
+    <string name="check1">10 seconds</string>
+    <string name="check2">20 seconds</string>
+    <string name="check3">30 seconds</string>
 
 
     <string name="unknown_device">Unknown device</string>
