@@ -69,6 +69,7 @@ public class DeviceControlActivity extends Activity {
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
+    private BluetoothGattCharacteristic mCharacteristicToRead;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
@@ -118,8 +119,7 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                 showNotification();
-                unbindService(mServiceConnection);
-                mBluetoothLeService = null;
+
             }
         }
     };
@@ -152,6 +152,7 @@ public class DeviceControlActivity extends Activity {
                             mBluetoothLeService.setCharacteristicNotification(
                                     characteristic, true);
                         }
+                        mCharacteristicToRead = characteristic;
                         return true;
                     }
                     return false;
@@ -206,6 +207,7 @@ public class DeviceControlActivity extends Activity {
         super.onDestroy();
         unbindService(mServiceConnection);
         mBluetoothLeService = null;
+        mCharacteristicToRead = null;
     }
 
     @Override
@@ -326,15 +328,16 @@ public class DeviceControlActivity extends Activity {
         {
             case R.id.checkBox:
                 if(checked) {
-                    final int time = 1800000;
+                    final int time = 60000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                             showNotification();
-                            unbindService(mServiceConnection);
-                            mBluetoothLeService = null;
+
 
                         }
 
@@ -348,16 +351,16 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox2:
                 if(checked){
-                    final int time = 3600000;
+                    final int time = 120000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                             showNotification();
-                            unbindService(mServiceConnection);
-                            mBluetoothLeService = null;
+
                         }
 
                     },time);
@@ -370,16 +373,16 @@ public class DeviceControlActivity extends Activity {
                 break;
             case R.id.checkBox3:
                 if(checked){
-                    final int time = 7200000;
+                    final int time = 360000;
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
 
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                             showNotification();
-                            unbindService(mServiceConnection);
-                            mBluetoothLeService = null;
+
                         }
 
                     },time);
