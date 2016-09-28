@@ -70,6 +70,9 @@ public class DeviceControlActivity extends Activity {
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothGattCharacteristic mCharacteristicToRead;
+    private String[] parts;
+    private String[] temp;
+    private String[] bpm;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
@@ -118,7 +121,7 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
-                showNotification();
+
 
             }
         }
@@ -251,6 +254,9 @@ public class DeviceControlActivity extends Activity {
     public void displayData(String data) {
         if (data != null) {
             mDataField.setText(data);
+            parts = data.split("\\t");
+            temp = parts[0].split(":");
+            bpm = parts[1].split(":");
         }
     }
 
@@ -273,7 +279,7 @@ public class DeviceControlActivity extends Activity {
             uuid = gattService.getUuid().toString();
             currentServiceData.put(
                     LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
-            currentServiceData.put(LIST_UUID, uuid);
+           // currentServiceData.put(LIST_UUID, uuid);
             gattServiceData.add(currentServiceData);
 
             ArrayList<HashMap<String, String>> gattCharacteristicGroupData =
@@ -290,7 +296,7 @@ public class DeviceControlActivity extends Activity {
                 uuid = gattCharacteristic.getUuid().toString();
                 currentCharaData.put(
                         LIST_NAME, SampleGattAttributes.lookup(uuid, unknownCharaString));
-               currentCharaData.put(LIST_UUID, uuid);
+              // currentCharaData.put(LIST_UUID, uuid);
                 gattCharacteristicGroupData.add(currentCharaData);
             }
             mGattCharacteristics.add(charas);
@@ -403,7 +409,7 @@ public class DeviceControlActivity extends Activity {
                 .setTicker(r.getString(R.string.notification_title))
                 .setSmallIcon(android.R.drawable.ic_menu_report_image)
                 .setContentTitle(r.getString(R.string.notification_title))
-                .setContentText(i.getStringExtra(BluetoothLeService.EXTRA_DATA))
+                .setContentText(parts[0])
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .build();
