@@ -156,8 +156,6 @@ public class DeviceControlActivity extends Activity {
                                     characteristic, true);
                         }
                         mCharacteristicToRead = characteristic;
-                        displayData(data);
-                        showNotification();
                         return true;
                     }
                     return false;
@@ -340,11 +338,7 @@ public class DeviceControlActivity extends Activity {
                         public void run() {
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            if (data != null) {
-                                mDataField.setText(data);
-                            }
-
-                            //displayData(data);
+                            displayData(data);
                             showNotification();
 
                         }
@@ -367,11 +361,7 @@ public class DeviceControlActivity extends Activity {
 
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            if (data != null) {
-                                mDataField.setText(data);
-                            }
-
-                            //displayData(data);
+                            displayData(data);
                             showNotification();
                         }
 
@@ -393,11 +383,7 @@ public class DeviceControlActivity extends Activity {
 
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            if (data != null) {
-                                mDataField.setText(data);
-                            }
-
-                            //displayData(data);
+                            displayData(data);
                             showNotification();
 
                         }
@@ -414,7 +400,6 @@ public class DeviceControlActivity extends Activity {
 
     public void showNotification() {
         PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, DeviceControlActivity.class), 0);
-        Intent i = getIntent();
         Resources r = getResources();
         Notification notif = new NotificationCompat.Builder(this)
                 .setTicker(r.getString(R.string.notification_title))
