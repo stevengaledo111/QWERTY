@@ -341,8 +341,8 @@ public class DeviceControlActivity extends Activity {
                         public void run() {
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+                            //displayData(data);
+                            //showNotification();
 
                         }
 
@@ -364,8 +364,8 @@ public class DeviceControlActivity extends Activity {
 
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+                           // displayData(data);
+                           // showNotification();
                         }
 
                     },time);
@@ -386,8 +386,8 @@ public class DeviceControlActivity extends Activity {
 
 
                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+                           // displayData(data);
+                           // showNotification();
 
                         }
 
