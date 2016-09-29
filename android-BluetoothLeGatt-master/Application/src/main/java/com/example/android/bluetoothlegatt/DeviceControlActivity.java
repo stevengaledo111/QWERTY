@@ -138,6 +138,7 @@ public class DeviceControlActivity extends Activity {
                     if (mGattCharacteristics != null) {
                         final BluetoothGattCharacteristic characteristic =
                                 mGattCharacteristics.get(groupPosition).get(childPosition);
+
                         final int charaProp = characteristic.getProperties();
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                             // If there is an active notification on a characteristic, clear
@@ -155,6 +156,8 @@ public class DeviceControlActivity extends Activity {
                                     characteristic, true);
                         }
                         mCharacteristicToRead = characteristic;
+                        displayData(data);
+                        showNotification();
                         return true;
                     }
                     return false;
@@ -336,14 +339,13 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             if (data != null) {
                                 mDataField.setText(data);
                             }
 
-                           // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                           //displayData(data);
-                           showNotification();
-
+                            //displayData(data);
+                            showNotification();
 
                         }
 
@@ -363,11 +365,12 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
+
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             if (data != null) {
                                 mDataField.setText(data);
                             }
 
-                            // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             //displayData(data);
                             showNotification();
                         }
@@ -388,11 +391,12 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
+
+                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             if (data != null) {
                                 mDataField.setText(data);
                             }
 
-                            // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
                             //displayData(data);
                             showNotification();
 
