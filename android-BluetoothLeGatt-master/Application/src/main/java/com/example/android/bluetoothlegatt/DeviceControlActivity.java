@@ -337,9 +337,31 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+                            if (mGattCharacteristics != null) {
+                                final int charaProp = mCharacteristicToRead.getProperties();
+                                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                                    // If there is an active notification on a characteristic, clear
+                                    // it first so it doesn't update the data field on the user interface.
+                                    if (mNotifyCharacteristic != null) {
+                                        mBluetoothLeService.setCharacteristicNotification(
+                                                mNotifyCharacteristic, false);
+                                        mNotifyCharacteristic = null;
+                                    }
+                                    mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                }
+                            }
+
+                            registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+                            if (mBluetoothLeService != null) {
+                                final boolean result = mBluetoothLeService.connect(mDeviceAddress);
+                                Log.d(TAG, "Connect request result=" + result);
+                            }
+
+
+
+                            // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                           // displayData(data);
+                           // showNotification();
 
 
                         }
@@ -361,9 +383,31 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+
+                            if (mGattCharacteristics != null) {
+                                final int charaProp = mCharacteristicToRead.getProperties();
+                                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                                    // If there is an active notification on a characteristic, clear
+                                    // it first so it doesn't update the data field on the user interface.
+                                    if (mNotifyCharacteristic != null) {
+                                        mBluetoothLeService.setCharacteristicNotification(
+                                                mNotifyCharacteristic, false);
+                                        mNotifyCharacteristic = null;
+                                    }
+                                    mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                }
+                            }
+
+                            registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+                            if (mBluetoothLeService != null) {
+                                final boolean result = mBluetoothLeService.connect(mDeviceAddress);
+                                Log.d(TAG, "Connect request result=" + result);
+                            }
+
+
+                            //mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                            //displayData(data);
+                            //showNotification();
 
 
                         }
@@ -384,9 +428,31 @@ public class DeviceControlActivity extends Activity {
                         @Override
                         public void run() {
 
-                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                            displayData(data);
-                            showNotification();
+                            if (mGattCharacteristics != null) {
+                                final int charaProp = mCharacteristicToRead.getProperties();
+                                if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                                    // If there is an active notification on a characteristic, clear
+                                    // it first so it doesn't update the data field on the user interface.
+                                    if (mNotifyCharacteristic != null) {
+                                        mBluetoothLeService.setCharacteristicNotification(
+                                                mNotifyCharacteristic, false);
+                                        mNotifyCharacteristic = null;
+                                    }
+                                    mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                }
+                            }
+
+                            registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+                            if (mBluetoothLeService != null) {
+                                final boolean result = mBluetoothLeService.connect(mDeviceAddress);
+                                Log.d(TAG, "Connect request result=" + result);
+                            }
+
+
+
+                           // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                           // displayData(data);
+                           // showNotification();
 
 
                         }
