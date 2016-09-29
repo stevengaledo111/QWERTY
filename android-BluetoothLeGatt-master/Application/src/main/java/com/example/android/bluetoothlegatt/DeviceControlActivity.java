@@ -120,7 +120,7 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(data);
-                //showNotification();
+                showNotification();
 
             }
         }
@@ -341,7 +341,7 @@ public class DeviceControlActivity extends Activity {
                                       @Override
                                       public void run() {
                                           mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                          //displayData(data);
+                                          displayData(data);
                                           showNotification();
                                       }
                                   });
@@ -372,7 +372,7 @@ public class DeviceControlActivity extends Activity {
                                         @Override
                                         public void run() {
                                             mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                           //displayData(data);
+                                           displayData(data);
                                            showNotification();
                                         }
                                     });
@@ -402,7 +402,7 @@ public class DeviceControlActivity extends Activity {
                                         @Override
                                         public void run() {
                                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                           // displayData(data);
+                                            displayData(data);
                                             showNotification();
                                         }
                                     });
