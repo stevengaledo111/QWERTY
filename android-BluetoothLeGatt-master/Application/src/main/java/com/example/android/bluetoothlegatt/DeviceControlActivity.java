@@ -138,7 +138,8 @@ public class DeviceControlActivity extends Activity {
                     if (mGattCharacteristics != null) {
                         final BluetoothGattCharacteristic characteristic =
                                 mGattCharacteristics.get(groupPosition).get(childPosition);
-
+                        Intent intent = getIntent();
+                        data = intent.getStringExtra(BluetoothLeService.EXTRA_DATA);
                         final int charaProp = characteristic.getProperties();
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                             // If there is an active notification on a characteristic, clear
@@ -156,6 +157,8 @@ public class DeviceControlActivity extends Activity {
                                     characteristic, true);
                         }
                         mCharacteristicToRead = characteristic;
+                        displayData(data);
+                        showNotification();
                         return true;
                     }
                     return false;
