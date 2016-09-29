@@ -120,7 +120,7 @@ public class DeviceControlActivity extends Activity {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(data);
-                showNotification();
+                //showNotification();
 
             }
         }
@@ -340,8 +340,8 @@ public class DeviceControlActivity extends Activity {
                                   runOnUiThread(new Runnable() {
                                       @Override
                                       public void run() {
-                                          //mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                          displayData(data);
+                                          mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                          //displayData(data);
                                           showNotification();
                                       }
                                   });
@@ -371,8 +371,8 @@ public class DeviceControlActivity extends Activity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                           // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                           displayData(data);
+                                            mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                           //displayData(data);
                                            showNotification();
                                         }
                                     });
@@ -401,8 +401,8 @@ public class DeviceControlActivity extends Activity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                           // mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
-                                            displayData(data);
+                                           mBluetoothLeService.readCharacteristic(mCharacteristicToRead);
+                                           // displayData(data);
                                             showNotification();
                                         }
                                     });
